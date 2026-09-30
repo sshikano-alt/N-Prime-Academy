@@ -80,7 +80,7 @@
     .compare-table .highlight-col { background-color: rgba(212, 163, 115, 0.08); border-left: 3px solid var(--accent-color); border-right: 3px solid var(--accent-color); color: var(--primary-color); font-weight: bold; }
     .compare-table thead .highlight-col { background-color: var(--primary-color); color: #fff; border: 3px solid var(--primary-color); font-size: 18px; }
     .compare-table tbody tr:last-child .highlight-col { border-bottom: 3px solid var(--accent-color); }
-    .highlight-text { color: #e63946; font-size: 18px; } /* 赤文字強調用 */
+    .highlight-text { color: #e63946; font-size: 18px; }
 
     /* プランセクション */
     .plan-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; padding-top: 15px; }
@@ -222,7 +222,6 @@
       <h2 class="section-title" data-key="about_title">NP学院とは</h2>
       <p data-key="about_p1">NP学院は、日本語能力試験「N1」を取得済み（または取得予定）で、日本での就職を目指す外国人材のための日本就活特化型オンラインスクールです。</p>
 
-      <!-- メッセージ組み込み枠 -->
       <div class="about-story-box">
         <p data-key="about_msg_1">
           日本で生活する夢を叶えるために、日本語学校に通いながら就活をしている留学生を半年で400名以上支援してきた当社。
@@ -240,7 +239,7 @@
     </div>
   </section>
 
-  <!-- NP学院が選ばれる理由（比較表追加セクション） -->
+  <!-- NP学院が選ばれる理由 -->
   <section>
     <h2 class="section-title" data-key="compare_title">NP学院が選ばれる理由（他社との違い）</h2>
     <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;" data-key="compare_sub">スピード重視！短期集中で一気に内定レベルまで引き上げます。</p>
@@ -268,7 +267,6 @@
             <td data-key="comp_row2_a">予約制（毎回講師が変わる）</td>
             <td data-key="comp_row2_b">質問対応チューターのみ</td>
           </tr>
-          <!-- 日本人プロコーチの強みを追加 -->
           <tr>
             <td class="row-header" data-key="comp_row_coach_h">担当コーチ</td>
             <td class="highlight-col">
@@ -463,7 +461,6 @@
         about_p2: "単なる日本語レッスンにとどまらず、進路相談、企業探し、優良求人のご提案、受かる書類添削、無制限※の面接練習を通じて、志望企業の内定獲得まで徹底的に伴走します。",
         about_note: "※「無制限」について：受講期間中回数無制限でご利用いただけますが、1日の実施枠・対応には常識的な上限（平日10:00〜18:00での順次対応）がございます。",
         
-        // 比較表セクション
         compare_title: "NP学院が選ばれる理由（他社との違い）",
         compare_sub: "スピード重視！短期集中で一気に内定レベルまで引き上げます。",
         comp_th_item: "比較項目",
@@ -478,7 +475,6 @@
         comp_row2_np: "専属コーチが内定まで伴走",
         comp_row2_a: "予約制（毎回講師が変わる）",
         comp_row2_b: "質問対応チューターのみ",
-        // 追加: 担当コーチ
         comp_row_coach_h: "担当コーチ",
         comp_row_coach_np: "日本人プロコーチのみ",
         comp_row_coach_np_sub: "（面接官のリアルな視点）",
@@ -561,7 +557,6 @@
         about_p2: "我们不仅提供日语指导，更提供职业规划、企业匹配、优质岗位推荐、简历修改及无限制※模拟面试，全程陪伴直达内定。",
         about_note: "※关于“无限制”：在学员服务期间可不限次数使用，但每日辅导名额与响应时间存在常识性上限（工作日10:00〜18:00按顺序处理）。",
         
-        // 比较表部分
         compare_title: "选择 NP学院 的理由（与他校对比）",
         compare_sub: "注重效率！短期集训快速达到内定水平。",
         comp_th_item: "对比项目",
@@ -576,7 +571,6 @@
         comp_row2_np: "专属教练全程陪跑至内定",
         comp_row2_a: "预约制（每次讲师不同）",
         comp_row2_b: "仅提供助教答疑",
-        // 追加: 担当コーチ
         comp_row_coach_h: "导师背景",
         comp_row_coach_np: "全日本人专业导师",
         comp_row_coach_np_sub: "（还原真实面试官视角）",
@@ -655,7 +649,7 @@
       });
     }
 
-    // プラン切り替えJavaScript
+    // プラン切り替え
     function showPlan(planId, buttonElement) {
       document.querySelectorAll('.plan-details').forEach(function(el) { el.classList.remove('active'); });
       document.querySelectorAll('.btn-plan').forEach(function(btn) { btn.classList.remove('active'); });
@@ -667,11 +661,14 @@
     function openModal() { document.getElementById('termsModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('termsModal').style.display = 'none'; }
 
-    // フォーム送信処理（GASバックエンド連携：別タブで開くパターンB）
-    function handleFormSubmit(event) {
+    // ★ フォーム送信処理（fetch方式へ変更）
+    async function handleFormSubmit(event) {
       event.preventDefault();
 
-      // ブラウザのポップアップブロック対策として、クリックイベント直後に空の別タブを開いておく
+      // ↓ ここにご自身の GAS Web アプリ URL を指定してください
+      const gasWebAppUrl = 'https://script.google.com/macros/s/xxxx/exec';
+
+      // ポップアップブロック対策で事前に空の別タブを開く
       var newTab = window.open('about:blank', '_blank');
 
       var btn = document.getElementById('submitBtn');
@@ -685,28 +682,33 @@
         agreed: event.target.agreed.checked
       };
 
-      google.script.run
-        .withSuccessHandler(function(response) {
-          if (response.status === 'success') {
-            // 事前に開いておいた別タブを eeasy の日程調整URLに遷移させる
-            newTab.location.href = response.redirectUrl;
-            
-            btn.innerText = '日程調整ページを開きました（別タブ）';
-          } else {
-            // エラー時は開いた空タブを閉じる
-            if (newTab) newTab.close();
-            alert('送信に失敗しました: ' + response.message);
-            btn.disabled = false;
-            btn.innerText = 'プロに無料相談する（日程調整へ）';
-          }
-        })
-        .withFailureHandler(function(error) {
+      try {
+        const response = await fetch(gasWebAppUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'text/plain;charset=utf-8'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const result = await response.json();
+
+        if (result.status === 'success') {
+          // eeasy の日程調整URLへ遷移
+          newTab.location.href = result.redirectUrl;
+          btn.innerText = '日程調整ページを開きました（別タブ）';
+        } else {
           if (newTab) newTab.close();
-          alert('通信エラーが発生しました: ' + error.message);
+          alert('送信に失敗しました: ' + (result.message || 'エラーが発生しました'));
           btn.disabled = false;
           btn.innerText = 'プロに無料相談する（日程調整へ）';
-        })
-        .processForm(formData);
+        }
+      } catch (error) {
+        if (newTab) newTab.close();
+        alert('通信エラーが発生しました。GASのURLをご確認ください。');
+        btn.disabled = false;
+        btn.innerText = 'プロに無料相談する（日程調整へ）';
+      }
     }
   </script>
 </body>
