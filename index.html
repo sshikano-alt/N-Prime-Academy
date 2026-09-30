@@ -178,7 +178,7 @@
 </head>
 <body>
 
-  <!-- 固定ナビバー（言語切り替えボタン配置） -->
+  <!-- 固定ナビバー -->
   <div class="navbar">
     <div class="nav-left">
       <img src="https://lh3.googleusercontent.com/d/1j4N1qSc1KO6hq0t3M7ZLbqPCbVBn-gIK" alt="NP学院" class="nav-logo">
@@ -239,7 +239,7 @@
     </div>
   </section>
 
-  <!-- NP学院が選ばれる理由 -->
+  <!-- 比較表 -->
   <section>
     <h2 class="section-title" data-key="compare_title">NP学院が選ばれる理由（他社との違い）</h2>
     <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;" data-key="compare_sub">スピード重視！短期集中で一気に内定レベルまで引き上げます。</p>
@@ -366,7 +366,6 @@
         <p style="font-size: 13px; color: var(--text-muted); margin: 0;" data-key="form_sub">無理な勧誘や営業は一切ありませんので、安心してご予約ください。</p>
       </div>
 
-      <!-- 無料カウンセリングで行うこと -->
       <div class="counseling-content-grid">
         <div class="counseling-item">
           <span class="counseling-num">STEP 1</span>
@@ -413,7 +412,7 @@
     </div>
   </section>
 
-  <!-- 規約ポップアップ（モーダル） -->
+  <!-- 規約モーダル -->
   <div id="termsModal" class="modal">
     <div class="modal-content">
       <button class="modal-close" onclick="closeModal()">&times;</button>
@@ -440,7 +439,7 @@
   </footer>
 
   <script>
-    // 辞書データ（日本語・中国語）
+    // 辞書データ
     const i18n = {
       ja: {
         nav_btn: "無料相談はこちら",
@@ -460,7 +459,6 @@
         about_msg_3: "せっかく日本に来たのに仕事が見つからない、ビザの期限に焦って本命ではないお仕事に就く。そんな状況を少しでも変えたく、本校を開校いたしました。",
         about_p2: "単なる日本語レッスンにとどまらず、進路相談、企業探し、優良求人のご提案、受かる書類添削、無制限※の面接練習を通じて、志望企業の内定獲得まで徹底的に伴走します。",
         about_note: "※「無制限」について：受講期間中回数無制限でご利用いただけますが、1日の実施枠・対応には常識的な上限（平日10:00〜18:00での順次対応）がございます。",
-        
         compare_title: "NP学院が選ばれる理由（他社との違い）",
         compare_sub: "スピード重視！短期集中で一気に内定レベルまで引き上げます。",
         comp_th_item: "比較項目",
@@ -480,7 +478,6 @@
         comp_row_coach_np_sub: "（面接官のリアルな視点）",
         comp_row_coach_a: "中国人講師・先輩留学生",
         comp_row_coach_b: "語学学校の先生",
-        
         comp_row3_h: "受講形式",
         comp_row3_np: "対面 ＆ オンライン両対応",
         comp_row3_a: "対面のみ",
@@ -493,7 +490,6 @@
         comp_row5_np: "圧倒的低価格（3万円〜）",
         comp_row5_a: "高額（30万円〜50万円）",
         comp_row5_b: "一般的な価格（10万円〜）",
-
         plan_title: "料金プラン",
         plan_sub: "目指すゴールとサポート範囲で選べる3つのプラン",
         plan_btn_light: "ライト",
@@ -556,7 +552,6 @@
         about_msg_3: "好不容易来到日本却找不到合适的工作，因签证到期焦虑而不得不选择非心仪的工作——为了改变这种现状，我们创办了NP学院。",
         about_p2: "我们不仅提供日语指导，更提供职业规划、企业匹配、优质岗位推荐、简历修改及无限制※模拟面试，全程陪伴直达内定。",
         about_note: "※关于“无限制”：在学员服务期间可不限次数使用，但每日辅导名额与响应时间存在常识性上限（工作日10:00〜18:00按顺序处理）。",
-        
         compare_title: "选择 NP学院 的理由（与他校对比）",
         compare_sub: "注重效率！短期集训快速达到内定水平。",
         comp_th_item: "对比项目",
@@ -576,7 +571,6 @@
         comp_row_coach_np_sub: "（还原真实面试官视角）",
         comp_row_coach_a: "中国讲师或留学生前辈",
         comp_row_coach_b: "语言学校日语教师",
-        
         comp_row3_h: "授课形式",
         comp_row3_np: "线下 & 线上双轨支持",
         comp_row3_a: "仅限线下",
@@ -589,7 +583,6 @@
         comp_row5_np: "极致性价比（3万日元起）",
         comp_row5_a: "昂贵（30万~50万日元）",
         comp_row5_b: "普通价格（10万日元起）",
-
         plan_title: "课程套餐",
         plan_sub: "根据你的求职目标与服务需求选择合适的套餐",
         plan_btn_light: "基础班",
@@ -636,39 +629,31 @@
       }
     };
 
-    // 言語切り替え処理
     function setLanguage(lang) {
       document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
       document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
-      
       document.querySelectorAll('[data-key]').forEach(el => {
         const key = el.getAttribute('data-key');
-        if (i18n[lang][key]) {
-          el.innerHTML = i18n[lang][key];
-        }
+        if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
       });
     }
 
-    // プラン切り替え
     function showPlan(planId, buttonElement) {
-      document.querySelectorAll('.plan-details').forEach(function(el) { el.classList.remove('active'); });
-      document.querySelectorAll('.btn-plan').forEach(function(btn) { btn.classList.remove('active'); });
+      document.querySelectorAll('.plan-details').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.btn-plan').forEach(btn => btn.classList.remove('active'));
       document.getElementById(planId).classList.add('active');
       buttonElement.classList.add('active');
     }
 
-    // モーダル操作
     function openModal() { document.getElementById('termsModal').style.display = 'flex'; }
     function closeModal() { document.getElementById('termsModal').style.display = 'none'; }
 
-    // ★ フォーム送信処理（fetch方式へ変更）
+    // ★ 最新GAS URLをセットしたフォーム送信関数
     async function handleFormSubmit(event) {
       event.preventDefault();
 
-      // ↓ ここにご自身の GAS Web アプリ URL を指定してください
-      const gasWebAppUrl = 'https://script.google.com/macros/s/xxxx/exec';
+      const gasWebAppUrl = 'https://script.google.com/macros/s/AKfycbyJih6EpZEbdCaKa7rTG6LYhPb2Q9RN5EbezQ0Qrv_9yA_LPoizw8yrgxiA_HQJrcla/exec';
 
-      // ポップアップブロック対策で事前に空の別タブを開く
       var newTab = window.open('about:blank', '_blank');
 
       var btn = document.getElementById('submitBtn');
@@ -685,16 +670,13 @@
       try {
         const response = await fetch(gasWebAppUrl, {
           method: 'POST',
-          headers: {
-            'Content-Type': 'text/plain;charset=utf-8'
-          },
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify(formData)
         });
 
         const result = await response.json();
 
         if (result.status === 'success') {
-          // eeasy の日程調整URLへ遷移
           newTab.location.href = result.redirectUrl;
           btn.innerText = '日程調整ページを開きました（別タブ）';
         } else {
@@ -705,7 +687,7 @@
         }
       } catch (error) {
         if (newTab) newTab.close();
-        alert('通信エラーが発生しました。GASのURLをご確認ください。');
+        alert('通信エラーが発生しました。GASのデプロイ設定をご確認ください。');
         btn.disabled = false;
         btn.innerText = 'プロに無料相談する（日程調整へ）';
       }
