@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NP学院 | 日本就活特化型スクール</title>
+  <style>
+    /* 全体・カラー定義（ロゴ背景色 #09153D に統一） */
+    :root {
+      --primary-color: #09153D;  /* ロゴ背景と完全一致の濃紺 */
+      --accent-color: #d4a373;   /* ゴールド/ベージュ */
+      --accent-hover: #b58555;
+      --bg-light: #f8f9fa;
+      --text-main: #2d3748;
+      --text-muted: #64748b;
+    }
+
+    * { box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Arial, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', 'メイリオ', Meiryo, sans-serif; margin: 0; padding: 0; color: var(--text-main); line-height: 1.7; background-color: var(--bg-light); }
+    h1, h2, h3 { color: var(--primary-color); margin-top: 0; }
+    
+    /* 固定ヘッダーナビゲーション */
+    .navbar { position: sticky; top: 0; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 100; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; max-width: 100%; }
+    .nav-left { display: flex; align-items: center; gap: 15px; }
+    .nav-logo { height: 40px; width: auto; vertical-align: middle; }
+    
+    /* 言語切り替えスイッチ */
+    .lang-switch { display: flex; background: #f1f5f9; border-radius: 20px; padding: 2px; border: 1px solid #cbd5e1; }
+    .lang-btn { border: none; background: transparent; padding: 4px 10px; font-size: 12px; font-weight: bold; cursor: pointer; border-radius: 16px; transition: 0.3s; color: #64748b; }
+    .lang-btn.active { background: var(--primary-color); color: #fff; }
+
+    .nav-btn { background-color: var(--accent-color); color: #fff; padding: 8px 18px; border-radius: 20px; font-weight: bold; text-decoration: none; font-size: 14px; transition: 0.3s; }
+    .nav-btn:hover { background-color: var(--accent-hover); }
+
+    /* レイアウト共通 */
+    section { padding: 60px 20px; max-width: 900px; margin: 0 auto; }
+    .card { background-color: #fff; border-radius: 12px; padding: 40px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); margin-bottom: 30px; }
+    .section-title { text-align: center; font-size: 26px; font-weight: bold; margin-bottom: 15px; position: relative; }
+    .section-title::after { content: ''; display: block; width: 50px; height: 3px; background: var(--accent-color); margin: 10px auto 0; border-radius: 2px; }
+
+    /* ボタン共通 */
+    .btn { display: inline-block; padding: 16px 36px; font-size: 18px; font-weight: bold; text-align: center; text-decoration: none; border-radius: 50px; cursor: pointer; transition: all 0.3s ease; border: none; box-shadow: 0 4px 12px rgba(212, 163, 115, 0.3); }
+    .btn-primary { background-color: var(--accent-color); color: #fff; }
+    .btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(212, 163, 115, 0.4); }
+    
+    /* ヒーローセクション */
+    .hero { background-color: #09153D; color: #fff; text-align: center; padding: 70px 20px; }
+    .hero-logo { max-width: 280px; width: 100%; height: auto; margin-bottom: 25px; display: inline-block; }
+    .hero p { font-size: 20px; margin-bottom: 35px; font-weight: 300; letter-spacing: 1px; }
+    
+    /* 課題セクション */
+    .issues-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 30px; }
+    .issue-card { background: #fff; padding: 25px; border-radius: 8px; border-top: 4px solid var(--primary-color); box-shadow: 0 2px 10px rgba(0,0,0,0.04); }
+    .issue-card h3 { font-size: 18px; margin-bottom: 10px; color: var(--primary-color); }
+    .issue-card p { font-size: 14px; color: var(--text-muted); margin: 0; }
+
+    /* 「NP学院とは」用装飾パーツ */
+    .about-story-box {
+      background: #f8fafc;
+      border-left: 4px solid var(--accent-color);
+      padding: 20px 24px;
+      border-radius: 0 8px 8px 0;
+      margin: 25px 0;
+    }
+    .about-story-box p {
+      margin: 0 0 12px 0;
+    }
+    .about-story-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 比較表セクション */
+    .table-responsive { overflow-x: auto; margin-top: 30px; }
+    .compare-table { width: 100%; border-collapse: collapse; min-width: 600px; background: #fff; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden; margin-bottom: 10px; }
+    .compare-table th, .compare-table td { padding: 16px 12px; text-align: center; border: 1px solid #e2e8f0; font-size: 15px; vertical-align: middle; }
+    .compare-table th { background-color: #f8fafc; font-weight: bold; color: var(--text-main); }
+    .compare-table td.row-header { font-weight: bold; background-color: #f8fafc; text-align: left; padding-left: 15px; }
+    
+    /* 当社のハイライト設定 */
+    .compare-table .highlight-col { background-color: rgba(212, 163, 115, 0.08); border-left: 3px solid var(--accent-color); border-right: 3px solid var(--accent-color); color: var(--primary-color); font-weight: bold; }
+    .compare-table thead .highlight-col { background-color: var(--primary-color); color: #fff; border: 3px solid var(--primary-color); font-size: 18px; }
+    .compare-table tbody tr:last-child .highlight-col { border-bottom: 3px solid var(--accent-color); }
+    .highlight-text { color: #e63946; font-size: 18px; } /* 赤文字強調用 */
+
+    /* プランセクション */
+    .plan-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; padding-top: 15px; }
+    .btn-plan {
+      background-color: #e2e8f0;
+      color: #475569;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+      flex: 1;
+      min-width: 160px;
+      max-width: 250px;
+      position: relative;
+    }
+
+    .btn-plan.active {
+      background-color: var(--primary-color) !important;
+      color: #fff !important;
+      box-shadow: 0 4px 10px rgba(9, 21, 61, 0.2);
+    }
+
+    .btn-plan-recommend {
+      background-color: #e63946 !important;
+      color: #fff !important;
+      box-shadow: 0 4px 12px rgba(230, 57, 70, 0.3);
+    }
+    .btn-plan-recommend.active {
+      background-color: #c1121f !important;
+      box-shadow: 0 6px 16px rgba(193, 18, 31, 0.4);
+    }
+
+    .recommend-badge {
+      position: absolute;
+      top: -12px;
+      right: -8px;
+      background-color: #ffb703;
+      color: #000;
+      font-size: 11px;
+      font-weight: bold;
+      padding: 3px 8px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      white-space: nowrap;
+      z-index: 10;
+      pointer-events: none;
+    }
+    
+    .plan-details { display: none; background: #fff; border: 2px solid var(--primary-color); border-radius: 12px; padding: 40px 30px; text-align: center; }
+    .plan-details.active { display: block; animation: fadeIn 0.4s ease-out; }
+    .plan-price { font-size: 28px; color: var(--accent-color); font-weight: bold; margin: 20px 0; }
+    .plan-features { text-align: left; display: inline-block; margin-bottom: 30px; padding-left: 0; list-style: none; }
+    .plan-features li { margin-bottom: 10px; position: relative; padding-left: 25px; font-size: 15px; }
+    .plan-features li::before { content: "✔"; position: absolute; left: 0; color: var(--accent-color); font-weight: bold; }
+
+    /* 無料カウンセリング内容パーツ */
+    .counseling-content-grid { display: flex; flex-direction: column; gap: 15px; margin: 25px 0 35px 0; text-align: left; }
+    .counseling-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 18px 20px; position: relative; }
+    .counseling-num { font-size: 12px; font-weight: bold; color: var(--accent-color); background: rgba(212, 163, 115, 0.15); padding: 3px 10px; border-radius: 12px; display: inline-block; margin-bottom: 6px; }
+    .counseling-item h4 { margin: 0 0 6px 0; font-size: 16px; color: var(--primary-color); }
+    .counseling-item p { margin: 0; font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+    /* フォーム要素 */
+    .form-group { margin-bottom: 20px; text-align: left; }
+    .form-group label { font-weight: bold; font-size: 14px; display: block; margin-bottom: 6px; }
+    .form-control { width: 100%; padding: 14px; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 15px; transition: 0.3s; }
+    .form-control:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(9,21,61,0.1); }
+    .agree-box { background: #f1f5f9; padding: 18px; border-radius: 6px; font-size: 13.5px; text-align: left; margin-bottom: 25px; border: 1px solid #e2e8f0; }
+    
+    /* 規約モーダル表示エリア */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; backdrop-filter: blur(2px); }
+    .modal-content { background: #fff; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; padding: 35px; border-radius: 12px; position: relative; text-align: left; }
+    .modal-close { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; border: none; background: none; color: #94a3b8; }
+
+    /* フッター */
+    footer { background-color: #050b21; color: #94a3b8; text-align: center; padding: 50px 20px; font-size: 14px; margin-top: 40px; }
+    footer p { margin: 6px 0; }
+    footer strong { color: #f8fafc; }
+    
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 600px) {
+      .hero p { font-size: 16px; }
+      .section-title { font-size: 22px; }
+      .card { padding: 25px 20px; }
+      .nav-left { gap: 8px; }
+      .lang-btn { padding: 3px 6px; font-size: 11px; }
+      .nav-btn { padding: 6px 12px; font-size: 12px; }
+      .compare-table th, .compare-table td { font-size: 13px; padding: 10px 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 固定ナビバー（言語切り替えボタン配置） -->
+  <div class="navbar">
+    <div class="nav-left">
+      <img src="https://lh3.googleusercontent.com/d/1j4N1qSc1KO6hq0t3M7ZLbqPCbVBn-gIK" alt="NP学院" class="nav-logo">
+      <div class="lang-switch">
+        <button class="lang-btn active" id="btn-ja" onclick="setLanguage('ja')">JP</button>
+        <button class="lang-btn" id="btn-zh" onclick="setLanguage('zh')">中文</button>
+      </div>
+    </div>
+    <a href="#counseling-form" class="nav-btn" data-key="nav_btn">無料相談はこちら</a>
+  </div>
+
+  <!-- トップ：ヒーローセクション -->
+  <header class="hero">
+    <img src="https://lh3.googleusercontent.com/d/1le0s5krEXFGXyyg04OD_Cz8CKyXCTNZI" alt="NP学院" class="hero-logo"><br>
+    <p data-key="hero_sub">日本語力(N1)保有者・学習者のための<br>日本就活特化型スクール</p>
+    <a href="#counseling-form" class="btn btn-primary" data-key="hero_btn">無料カウンセリングを予約する</a>
+  </header>
+
+  <!-- 就活の壁 -->
+  <section>
+    <h2 class="section-title" data-key="issues_title">こんな「就活の壁」にぶつかっていませんか？</h2>
+    <div class="issues-grid">
+      <div class="issue-card">
+        <h3 data-key="issue1_h">企業選び・方針の壁</h3>
+        <p data-key="issue1_p">自分の専門性や強みを活かせる企業が分からない。一人で就活を進めていて迷いがある。</p>
+      </div>
+      <div class="issue-card">
+        <h3 data-key="issue2_h">書類・選考通過の壁</h3>
+        <p data-key="issue2_p">N1を持っていても、日本企業に評価される「自己PR」や「志望動機」の書き方が分からない。</p>
+      </div>
+      <div class="issue-card">
+        <h3 data-key="issue3_h">実践面接・マナーの壁</h3>
+        <p data-key="issue3_p">日常会話と面接の日本語は別物。本番で使えるビジネス敬語や、適切な受け答えの練習機会がない。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- サービス説明 -->
+  <section>
+    <div class="card">
+      <h2 class="section-title" data-key="about_title">NP学院とは</h2>
+      <p data-key="about_p1">NP学院は、日本語能力試験「N1」を取得済み（または取得予定）で、日本での就職を目指す外国人材のための日本就活特化型オンラインスクールです。</p>
+
+      <!-- メッセージ組み込み枠 -->
+      <div class="about-story-box">
+        <p data-key="about_msg_1">
+          日本で生活する夢を叶えるために、日本語学校に通いながら就活をしている留学生を半年で400名以上支援してきた当社。
+        </p>
+        <p data-key="about_msg_2">
+          ご支援を通じ、内定が取れる人、そうでない人には、決定的な差があることが分かりました。スキルの差ではないです。人間性でもないです。<strong>①日本のビジネス習慣</strong>、<strong>②就活マナー・ルールを知っているか否か、実践できているか否かの差</strong>です。
+        </p>
+        <p data-key="about_msg_3">
+          せっかく日本に来たのに仕事が見つからない、ビザの期限に焦って本命ではないお仕事に就く。そんな状況を少しでも変えたく、本校を開校いたしました。
+        </p>
+      </div>
+
+      <p data-key="about_p2">単なる日本語レッスンにとどまらず、進路相談、企業探し、優良求人のご提案、受かる書類添削、無制限※の面接練習を通じて、志望企業の内定獲得まで徹底的に伴走します。</p>
+      <p style="font-size: 12px; color: var(--text-muted); margin-top: 20px;" data-key="about_note">※「無制限」について：受講期間中回数無制限でご利用いただけますが、1日の実施枠・対応には常識的な上限（平日10:00〜18:00での順次対応）がございます。</p>
+    </div>
+  </section>
+
+  <!-- NP学院が選ばれる理由（比較表追加セクション） -->
+  <section>
+    <h2 class="section-title" data-key="compare_title">NP学院が選ばれる理由（他社との違い）</h2>
+    <p style="text-align: center; color: var(--text-muted); margin-bottom: 20px;" data-key="compare_sub">スピード重視！短期集中で一気に内定レベルまで引き上げます。</p>
+    
+    <div class="table-responsive">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th data-key="comp_th_item" style="width: 20%;">比較項目</th>
+            <th class="highlight-col" data-key="comp_th_np" style="width: 30%;">NP学院</th>
+            <th data-key="comp_th_a" style="width: 25%;">一般的な就活塾(A社)</th>
+            <th data-key="comp_th_b" style="width: 25%;">語学学校のサポート等(B社)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="row-header" data-key="comp_row1_h">指導形式</td>
+            <td class="highlight-col" data-key="comp_row1_np">個別指導</td>
+            <td data-key="comp_row1_a">集団授業メイン</td>
+            <td data-key="comp_row1_b">動画学習主体</td>
+          </tr>
+          <tr>
+            <td class="row-header" data-key="comp_row2_h">担当制</td>
+            <td class="highlight-col" data-key="comp_row2_np">専属コーチが内定まで伴走</td>
+            <td data-key="comp_row2_a">予約制（毎回講師が変わる）</td>
+            <td data-key="comp_row2_b">質問対応チューターのみ</td>
+          </tr>
+          <!-- 日本人プロコーチの強みを追加 -->
+          <tr>
+            <td class="row-header" data-key="comp_row_coach_h">担当コーチ</td>
+            <td class="highlight-col">
+              <span class="highlight-text" data-key="comp_row_coach_np">日本人プロコーチのみ</span><br>
+              <span style="font-size: 12px; font-weight: normal; color: var(--primary-color);" data-key="comp_row_coach_np_sub">（面接官のリアルな視点）</span>
+            </td>
+            <td data-key="comp_row_coach_a">中国人講師・先輩留学生</td>
+            <td data-key="comp_row_coach_b">語学学校の先生</td>
+          </tr>
+          <tr>
+            <td class="row-header" data-key="comp_row3_h">受講形式</td>
+            <td class="highlight-col" data-key="comp_row3_np">対面 ＆ オンライン両対応</td>
+            <td data-key="comp_row3_a">対面のみ</td>
+            <td data-key="comp_row3_b">オンラインのみ</td>
+          </tr>
+          <tr>
+            <td class="row-header" data-key="comp_row4_h">期間・スピード</td>
+            <td class="highlight-col"><span class="highlight-text" data-key="comp_row4_np">短期集中型で一気に対策！</span></td>
+            <td data-key="comp_row4_a">半年〜1年の長期戦</td>
+            <td data-key="comp_row4_b">自己管理（マイペース）</td>
+          </tr>
+          <tr>
+            <td class="row-header" data-key="comp_row5_h">価格</td>
+            <td class="highlight-col" data-key="comp_row5_np">圧倒的低価格（3万円〜）</td>
+            <td data-key="comp_row5_a">高額（30万円〜50万円）</td>
+            <td data-key="comp_row5_b">一般的な価格（10万円〜）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 3つのプラン -->
+  <section>
+    <h2 class="section-title" data-key="plan_title">料金プラン</h2>
+    <p style="text-align: center; margin-bottom: 30px; color: var(--text-muted);" data-key="plan_sub">目指すゴールとサポート範囲で選べる3つのプラン</p>
+    
+    <div class="plan-buttons">
+      <button class="btn btn-plan active" onclick="showPlan('plan-light', this)" data-key="plan_btn_light">ライト</button>
+      
+      <button class="btn btn-plan btn-plan-recommend" onclick="showPlan('plan-standard', this)">
+        <span class="recommend-badge" data-key="badge_rec">おすすめ</span>
+        <span data-key="plan_btn_standard">スタンダード</span>
+      </button>
+
+      <button class="btn btn-plan" onclick="showPlan('plan-premium', this)" data-key="plan_btn_premium">プレミアム</button>
+    </div>
+
+    <!-- ライト -->
+    <div id="plan-light" class="plan-details active">
+      <h3 data-key="light_h">ライトプラン</h3>
+      <p style="color: var(--text-muted);" data-key="light_sub">基礎知識を最短で学びたい方へ</p>
+      <div class="plan-price" data-key="light_price">3万円 <span style="font-size: 16px; color: #666;">（税込）</span></div>
+      <ul class="plan-features">
+        <li data-key="light_f1">座学講座: 6時間</li>
+        <li data-key="light_f2">短期集中型カリキュラム</li>
+      </ul><br>
+      <a href="#counseling-form" class="btn btn-primary" data-key="plan_cta">無料カウンセリングで相談する</a>
+    </div>
+
+    <!-- スタンダード -->
+    <div id="plan-standard" class="plan-details">
+      <h3 data-key="standard_h">スタンダードプラン ★一番人気</h3>
+      <p style="color: var(--text-muted);" data-key="standard_sub">書類・面接対策までプロにフルサポートしてほしい方へ</p>
+      <div class="plan-price" data-key="standard_price">14万円 <span style="font-size: 16px; color: #666;">（月7万円×2ヶ月）</span></div>
+      <ul class="plan-features">
+        <li data-key="standard_f1">座学講座: 6時間 ＋ 個別指導: 14時間</li>
+        <li data-key="standard_f2">【無制限※】模擬面接＆フィードバック</li>
+        <li data-key="standard_f3">【無制限※】ES添削・質問受け放題</li>
+        <li data-key="standard_f4">適性に応じた優良求人のご提案</li>
+      </ul><br>
+      <a href="#counseling-form" class="btn btn-primary" data-key="plan_cta">無料カウンセリングで相談する</a>
+    </div>
+
+    <!-- プレミアム -->
+    <div id="plan-premium" class="plan-details">
+      <h3 data-key="premium_h">プレミアムプラン（最上位）</h3>
+      <p style="color: var(--text-muted);" data-key="premium_sub">大手・難関企業を目指す方／内定まで完全マンツーマンで並走してほしい方へ</p>
+      <div class="plan-price" data-key="premium_price">30万円 <span style="font-size: 16px; color: #666;">（月10万円×3ヶ月）</span></div>
+      <ul class="plan-features">
+        <li data-key="premium_f1">座学講座: 6時間 ＋ 個別指導: 24時間（完全オーダーメイド）</li>
+        <li data-key="premium_f2">難関選考対策（SPI・GD・ケース面接等）</li>
+        <li data-key="premium_f3">提携企業への最優先推薦・特別選考ルートの案内</li>
+        <li data-key="premium_f4">【無制限※】優先対応の模擬面接＆ES添削</li>
+      </ul><br>
+      <a href="#counseling-form" class="btn btn-primary" data-key="plan_cta">無料カウンセリングで相談する</a>
+    </div>
+  </section>
+
+  <!-- 無料カウンセリング予約フォーム -->
+  <section id="counseling-form">
+    <div class="card">
+      <div style="text-align: center; margin-bottom: 25px;">
+        <span style="background-color: var(--accent-color); color: #fff; font-size: 12px; font-weight: bold; padding: 4px 12px; border-radius: 20px; letter-spacing: 1px;" data-key="form_badge">カンタン1分・履歴書不要</span>
+        <h2 class="section-title" style="margin-top: 10px; margin-bottom: 10px;" data-key="form_title">無料個別カウンセリング予約</h2>
+        <p style="font-size: 16px; font-weight: bold; color: var(--primary-color); margin-bottom: 5px;" data-key="form_highlight">プロが無料相談に乗ります！</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin: 0;" data-key="form_sub">無理な勧誘や営業は一切ありませんので、安心してご予約ください。</p>
+      </div>
+
+      <!-- 無料カウンセリングで行うこと -->
+      <div class="counseling-content-grid">
+        <div class="counseling-item">
+          <span class="counseling-num">STEP 1</span>
+          <h4 data-key="cs_step1_title">① 就活状況の整理と診断</h4>
+          <p data-key="cs_step1_desc">他の就活者と比べた相対的な進捗の共有、今後やるべき対策の棚卸しを行います。</p>
+        </div>
+        <div class="counseling-item">
+          <span class="counseling-num">STEP 2</span>
+          <h4 data-key="cs_step2_title">② 内定者の事例共有</h4>
+          <p data-key="cs_step2_desc">実際に内定を獲得した先輩外国人の具体的な成功事例や実際のスケジュールを共有します。</p>
+        </div>
+        <div class="counseling-item">
+          <span class="counseling-num">STEP 3</span>
+          <h4 data-key="cs_step3_title">③ 就活の悩みや課題に対するアドバイス</h4>
+          <p data-key="cs_step3_desc">面接通過率や書類添削、企業選びなど、あなたが今抱えている不安や問題に個別でアドバイスします。</p>
+        </div>
+      </div>
+      
+      <form id="bookingForm" onsubmit="handleFormSubmit(event)">
+        <div class="form-group">
+          <label><span data-key="label_name">お名前（氏名）</span> <span style="color:red;">*</span></label>
+          <input type="text" name="name" class="form-control" required placeholder="例：山田 太郎">
+        </div>
+        
+        <div class="form-group">
+          <label><span data-key="label_email">メールアドレス</span> <span style="color:red;">*</span></label>
+          <input type="email" name="email" class="form-control" required placeholder="例：example@email.com">
+        </div>
+        
+        <div class="form-group">
+          <label><span data-key="label_phone">電話番号</span> <span style="color:red;">*</span></label>
+          <input type="tel" name="phone" class="form-control" required placeholder="例：09012345678">
+        </div>
+        
+        <div class="agree-box">
+          <label style="cursor: pointer;">
+            <input type="checkbox" name="agreed" required style="margin-right: 6px;">
+            <a href="#" onclick="openModal(); return false;" style="color: var(--primary-color); font-weight: bold;" data-key="terms_link">利用規約・個人情報の取り扱い・カスハラ防止規定</a><span data-key="terms_text">に同意する</span> <span style="color:red;">*</span>
+          </label>
+        </div>
+        
+        <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%;" data-key="submit_btn">プロに無料相談する（日程調整へ）</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- 規約ポップアップ（モーダル） -->
+  <div id="termsModal" class="modal">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()">&times;</button>
+      <h3 style="margin-bottom: 10px;" data-key="modal_title">NP学院 利用規約・プライバシーポリシー</h3>
+      <hr style="border: none; border-top: 1px solid #e2e8f0; margin-bottom: 20px;">
+      <div style="font-size: 13px; line-height: 1.6; color: #475569;">
+        <p><strong>【個人情報の取り扱い】</strong><br>ご入力いただいた個人情報は、カウンセリングの実施およびサービスのご案内のためにのみ利用し、第三者へ無断提供することはございません。</p>
+        <p><strong>【サービス・成果の無保証】</strong><br>本サービスは就職活動の指導・支援を行うものであり、内定の獲得や特定の企業への入社を保証するものではありません。</p>
+        <p><strong>【カスタマーハラスメントの禁止】</strong><br>暴言、威圧的な言動、度重なる無断キャンセル、不当な要求等のハラスメント行為があった場合、サービスの提供をお断り・契約解除する場合がございます。</p>
+        <p><strong>【特定継続的役務・解約について】</strong><br>契約成立後8日以内のクーリング・オフが可能です。中途解約時の精算は特定商取引法に基づき適正に算出して対応いたします。</p>
+        <p><strong>【お問い合わせ窓口】</strong><br>個人情報の開示・訂正・削除や本規約に関するお問い合わせは、下記窓口までご連絡ください。<br>
+        メール：np-academy@togetsu.co.jp（受付：平日10:00〜18:00）</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- フッター -->
+  <footer>
+    <p><strong>運営会社:</strong> 株式会社篤月</p>
+    <p>厚生労働大臣許可 有料職業紹介事業者 (許可番号: 13-ユ-318846)</p>
+    <p><strong>お問い合わせ:</strong> np-academy@togetsu.co.jp</p>
+    <p>受付時間: 平日 10:00〜18:00</p>
+    <p style="margin-top: 25px; font-size: 12px; opacity: 0.7;">&copy; 2026 N-Prime Academy. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // 辞書データ（日本語・中国語）
+    const i18n = {
+      ja: {
+        nav_btn: "無料相談はこちら",
+        hero_sub: "日本語力(N1)保有者・学習者のための<br>日本就活特化型スクール",
+        hero_btn: "無料カウンセリングを予約する",
+        issues_title: "こんな「就活の壁」にぶつかっていませんか？",
+        issue1_h: "企業選び・方針の壁",
+        issue1_p: "自分の専門性や強みを活かせる企業が分からない。一人で就活を進めていて迷いがある。",
+        issue2_h: "書類・選考通過の壁",
+        issue2_p: "N1を持っていても、日本企業に評価される「自己PR」や「志望動機」の書き方が分からない。",
+        issue3_h: "実践面接・マナーの壁",
+        issue3_p: "日常会話と面接の日本語は別物。本番で使えるビジネス敬語や、適切な受け答えの練習機会がない。",
+        about_title: "NP学院とは",
+        about_p1: "NP学院は、日本語能力試験「N1」を取得済み（または取得予定）で、日本での就職を目指す外国人材のための日本就活特化型オンラインスクールです。",
+        about_msg_1: "日本で生活する夢を叶えるために、日本語学校に通いながら就活をしている留学生を半年で400名以上支援してきた当社。",
+        about_msg_2: "ご支援を通じ、内定が取れる人、そうでない人には、決定的な差があることが分かりました。スキルの差ではないです。人間性でもないです。<strong>①日本のビジネス習慣</strong>、<strong>②就活マナー・ルールを知っているか否か、実践できているか否かの差</strong>です。",
+        about_msg_3: "せっかく日本に来たのに仕事が見つからない、ビザの期限に焦って本命ではないお仕事に就く。そんな状況を少しでも変えたく、本校を開校いたしました。",
+        about_p2: "単なる日本語レッスンにとどまらず、進路相談、企業探し、優良求人のご提案、受かる書類添削、無制限※の面接練習を通じて、志望企業の内定獲得まで徹底的に伴走します。",
+        about_note: "※「無制限」について：受講期間中回数無制限でご利用いただけますが、1日の実施枠・対応には常識的な上限（平日10:00〜18:00での順次対応）がございます。",
+        
+        // 比較表セクション
+        compare_title: "NP学院が選ばれる理由（他社との違い）",
+        compare_sub: "スピード重視！短期集中で一気に内定レベルまで引き上げます。",
+        comp_th_item: "比較項目",
+        comp_th_np: "NP学院",
+        comp_th_a: "一般的な就活塾(A社)",
+        comp_th_b: "語学学校のサポート等(B社)",
+        comp_row1_h: "指導形式",
+        comp_row1_np: "個別指導",
+        comp_row1_a: "集団授業メイン",
+        comp_row1_b: "動画学習主体",
+        comp_row2_h: "担当制",
+        comp_row2_np: "専属コーチが内定まで伴走",
+        comp_row2_a: "予約制（毎回講師が変わる）",
+        comp_row2_b: "質問対応チューターのみ",
+        // 追加: 担当コーチ
+        comp_row_coach_h: "担当コーチ",
+        comp_row_coach_np: "日本人プロコーチのみ",
+        comp_row_coach_np_sub: "（面接官のリアルな視点）",
+        comp_row_coach_a: "中国人講師・先輩留学生",
+        comp_row_coach_b: "語学学校の先生",
+        
+        comp_row3_h: "受講形式",
+        comp_row3_np: "対面 ＆ オンライン両対応",
+        comp_row3_a: "対面のみ",
+        comp_row3_b: "オンラインのみ",
+        comp_row4_h: "期間・スピード",
+        comp_row4_np: "短期集中型で一気に対策！",
+        comp_row4_a: "半年〜1年の長期戦",
+        comp_row4_b: "自己管理（マイペース）",
+        comp_row5_h: "価格",
+        comp_row5_np: "圧倒的低価格（3万円〜）",
+        comp_row5_a: "高額（30万円〜50万円）",
+        comp_row5_b: "一般的な価格（10万円〜）",
+
+        plan_title: "料金プラン",
+        plan_sub: "目指すゴールとサポート範囲で選べる3つのプラン",
+        plan_btn_light: "ライト",
+        plan_btn_standard: "スタンダード",
+        plan_btn_premium: "プレミアム",
+        badge_rec: "おすすめ",
+        light_h: "ライトプラン",
+        light_sub: "基礎知識を最短で学びたい方へ",
+        light_price: "3万円 <span style='font-size: 16px; color: #666;'>（税込）</span>",
+        light_f1: "座学講座: 6時間",
+        light_f2: "短期集中型カリキュラム",
+        standard_h: "スタンダードプラン ★一番人気",
+        standard_sub: "書類・面接対策までプロにフルサポートしてほしい方へ",
+        standard_price: "14万円 <span style='font-size: 16px; color: #666;'>（月7万円×2ヶ月）</span>",
+        standard_f1: "座学講座: 6時間 ＋ 個別指導: 14時間",
+        standard_f2: "【無制限※】模擬面接＆フィードバック",
+        standard_f3: "【無制限※】ES添削・質問受け放題",
+        standard_f4: "適性に応じた優良求人のご提案",
+        premium_h: "プレミアムプラン（最上位）",
+        premium_sub: "大手・難関企業を目指す方／内定まで完全マンツーマンで並走してほしい方へ",
+        premium_price: "30万円 <span style='font-size: 16px; color: #666;'>（月10万円×3ヶ月）</span>",
+        premium_f1: "座学講座: 6時間 ＋ 個別指導: 24時間（完全オーダーメイド）",
+        premium_f2: "難関選考対策（SPI・GD・ケース面接等）",
+        premium_f3: "提携企業への最優先推薦・特別選考ルートの案内",
+        premium_f4: "【無制限※】優先対応の模擬面接＆ES添削",
+        plan_cta: "無料カウンセリングで相談する",
+        form_badge: "カンタン1分・履歴書不要",
+        form_title: "無料個別カウンセリング予約",
+        form_highlight: "プロが無料相談に乗ります！",
+        form_sub: "無理な勧誘や営業は一切ありませんので、安心してご予約ください。",
+        cs_step1_title: "① 就活状況の整理と診断",
+        cs_step1_desc: "他の就活者と比べた相対的な進捗の共有、今後やるべき対策の棚卸しを行います。",
+        cs_step2_title: "② 内定者の事例共有",
+        cs_step2_desc: "実際に内定を獲得した先輩外国人の具体的な成功事例や実際のスケジュールを共有します。",
+        cs_step3_title: "③ 就活の悩みや課題に対するアドバイス",
+        cs_step3_desc: "面接通過率や書類添削、企業選びなど、あなたが今抱えている不安や問題に個別でアドバイスします。",
+        label_name: "お名前（氏名）",
+        label_email: "メールアドレス",
+        label_phone: "電話番号",
+        terms_link: "利用規約・個人情報の取り扱い・カスハラ防止規定",
+        terms_text: "に同意する",
+        submit_btn: "プロに無料相談する（日程調整へ）",
+        modal_title: "NP学院 利用規約・プライバシーポリシー"
+      },
+      zh: {
+        nav_btn: "免费咨询",
+        hero_sub: "面向N1持有者・学习者的<br>日本就职特化型培训学校",
+        hero_btn: "预约免费1对1咨询",
+        issues_title: "你是否也遇到了这些「求职壁垒」？",
+        issue1_h: "选企与方向的壁垒",
+        issue1_p: "不知道哪些企业能发挥自己的专业和优势。独自求职感到迷茫。",
+        issue2_h: "网申与书类筛选的壁垒",
+        issue2_p: "即使考过N1，也不懂如何撰写符合日本企业审美的「自我PR」和「志望动机」。",
+        issue3_h: "实操面试与礼仪的壁垒",
+        issue3_p: "日常会话与面试日语完全不同。缺乏实操练习商务敬语和面试应答的机会。",
+        about_title: "关于 NP学院",
+        about_p1: "NP学院是专门面向已取得（或计划取得）N1资格、并以在日本就业为目标的外国人才的日本就职特化型在线学校。",
+        about_msg_1: "为了帮助大家实现赴日生活的梦想，我们在半年内已成功辅导了400多名边读语言学校边求职的留学生。",
+        about_msg_2: "在辅导过程中，我们发现能顺利拿到Offer与拿不到的人之间，有着决定性的差距。这并非源于专业技能，也非源于个人品格，而是在于：<strong>① 是否了解日本的商务习惯</strong>，<strong>② 是否掌握并能实践求职礼仪与潜规则</strong>。",
+        about_msg_3: "好不容易来到日本却找不到合适的工作，因签证到期焦虑而不得不选择非心仪的工作——为了改变这种现状，我们创办了NP学院。",
+        about_p2: "我们不仅提供日语指导，更提供职业规划、企业匹配、优质岗位推荐、简历修改及无限制※模拟面试，全程陪伴直达内定。",
+        about_note: "※关于“无限制”：在学员服务期间可不限次数使用，但每日辅导名额与响应时间存在常识性上限（工作日10:00〜18:00按顺序处理）。",
+        
+        // 比较表部分
+        compare_title: "选择 NP学院 的理由（与他校对比）",
+        compare_sub: "注重效率！短期集训快速达到内定水平。",
+        comp_th_item: "对比项目",
+        comp_th_np: "NP学院",
+        comp_th_a: "一般就职私塾(A社)",
+        comp_th_b: "语言学校求职支援等(B社)",
+        comp_row1_h: "指导形式",
+        comp_row1_np: "1对1个性化辅导",
+        comp_row1_a: "大班授课为主",
+        comp_row1_b: "录播视频为主",
+        comp_row2_h: "负责制",
+        comp_row2_np: "专属教练全程陪跑至内定",
+        comp_row2_a: "预约制（每次讲师不同）",
+        comp_row2_b: "仅提供助教答疑",
+        // 追加: 担当コーチ
+        comp_row_coach_h: "导师背景",
+        comp_row_coach_np: "全日本人专业导师",
+        comp_row_coach_np_sub: "（还原真实面试官视角）",
+        comp_row_coach_a: "中国讲师或留学生前辈",
+        comp_row_coach_b: "语言学校日语教师",
+        
+        comp_row3_h: "授课形式",
+        comp_row3_np: "线下 & 线上双轨支持",
+        comp_row3_a: "仅限线下",
+        comp_row3_b: "仅限线上",
+        comp_row4_h: "周期与速度",
+        comp_row4_np: "短期集训，快速冲刺！",
+        comp_row4_a: "半年~1年的长期战",
+        comp_row4_b: "自主学习（进度慢）",
+        comp_row5_h: "价格",
+        comp_row5_np: "极致性价比（3万日元起）",
+        comp_row5_a: "昂贵（30万~50万日元）",
+        comp_row5_b: "普通价格（10万日元起）",
+
+        plan_title: "课程套餐",
+        plan_sub: "根据你的求职目标与服务需求选择合适的套餐",
+        plan_btn_light: "基础班",
+        plan_btn_standard: "标准班",
+        plan_btn_premium: "尊享班",
+        badge_rec: "推荐",
+        light_h: "基础班（Light）",
+        light_sub: "适合想要快速掌握日本求职基础知识的同学",
+        light_price: "3万日元 <span style='font-size: 16px; color: #666;'>（含税）</span>",
+        light_f1: "理论干货课程: 6小时",
+        light_f2: "短期高效集训",
+        standard_h: "标准班（Standard）★最受欢迎",
+        standard_sub: "适合希望导师全方位指导简历修改与面试实战的同学",
+        standard_price: "14万日元 <span style='font-size: 16px; color: #666;'>（月付7万×2个月）</span>",
+        standard_f1: "理论课程: 6小时 ＋ 1对1指导: 14小时",
+        standard_f2: "【无限制※】模拟面试与详细复盘",
+        standard_f3: "【无限制※】网申简历修改与问题解答",
+        standard_f4: "根据个人特质推荐优质企业岗位",
+        premium_h: "尊享班（Premium）★VIP定制",
+        premium_sub: "冲刺大手・名企，需要1对1全程深度陪跑的同学",
+        premium_price: "30万日元 <span style='font-size: 16px; color: #666;'>（月付10万×3个月）</span>",
+        premium_f1: "理论课程: 6小时 ＋ 1对1指导: 24小时（完全定制）",
+        premium_f2: "高难度选拔应对（SPI・GD面・Case面等）",
+        premium_f3: "合作企业优先推荐与特殊选拔绿色通道",
+        premium_f4: "【无制限※】优先响应的模拟面试与简历修改",
+        plan_cta: "预约免费1对1咨询",
+        form_badge: "只需1分钟・无需准备履历书",
+        form_title: "预约免费1对1求职咨询",
+        form_highlight: "专业导师为你免费答疑解惑！",
+        form_sub: "绝无任何强行推销或推销行为，请安心预约。",
+        cs_step1_title: "① 梳理与诊断求职现状",
+        cs_step1_desc: "对比其他求职者的相对进度，梳理并盘点接下来需要做的具体准备。",
+        cs_step2_title: "② 成功拿到Offer的前辈案例分享",
+        cs_step2_desc: "分享已成功拿到日本企业Offer的外国留学生前辈的真实成功经验与求职时间表。",
+        cs_step3_title: "③ 针对求职困惑与问题的专业建议",
+        cs_step3_desc: "针对你目前在面试通过率、简历修改、企业选择等方面的困惑，提供一对一解答与建议。",
+        label_name: "姓名（汉字/拼音）",
+        label_email: "电子邮箱",
+        label_phone: "联系电话",
+        terms_link: "服务条款・个人信息保护方针・反骚扰规定",
+        terms_text: "同意以上内容",
+        submit_btn: "免费预约专业咨询（前往选择时间）",
+        modal_title: "NP学院 服务条款与隐私政策"
+      }
+    };
+
+    // 言語切り替え処理
+    function setLanguage(lang) {
+      document.getElementById('btn-ja').classList.toggle('active', lang === 'ja');
+      document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+      
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (i18n[lang][key]) {
+          el.innerHTML = i18n[lang][key];
+        }
+      });
+    }
+
+    // プラン切り替えJavaScript
+    function showPlan(planId, buttonElement) {
+      document.querySelectorAll('.plan-details').forEach(function(el) { el.classList.remove('active'); });
+      document.querySelectorAll('.btn-plan').forEach(function(btn) { btn.classList.remove('active'); });
+      document.getElementById(planId).classList.add('active');
+      buttonElement.classList.add('active');
+    }
+
+    // モーダル操作
+    function openModal() { document.getElementById('termsModal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('termsModal').style.display = 'none'; }
+
+    // フォーム送信処理（GASバックエンド連携：別タブで開くパターンB）
+    function handleFormSubmit(event) {
+      event.preventDefault();
+
+      // ブラウザのポップアップブロック対策として、クリックイベント直後に空の別タブを開いておく
+      var newTab = window.open('about:blank', '_blank');
+
+      var btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerText = '送信中 / 正在提交...';
+
+      var formData = {
+        name: event.target.name.value,
+        email: event.target.email.value,
+        phone: event.target.phone.value,
+        agreed: event.target.agreed.checked
+      };
+
+      google.script.run
+        .withSuccessHandler(function(response) {
+          if (response.status === 'success') {
+            // 事前に開いておいた別タブを eeasy の日程調整URLに遷移させる
+            newTab.location.href = response.redirectUrl;
+            
+            btn.innerText = '日程調整ページを開きました（別タブ）';
+          } else {
+            // エラー時は開いた空タブを閉じる
+            if (newTab) newTab.close();
+            alert('送信に失敗しました: ' + response.message);
+            btn.disabled = false;
+            btn.innerText = 'プロに無料相談する（日程調整へ）';
+          }
+        })
+        .withFailureHandler(function(error) {
+          if (newTab) newTab.close();
+          alert('通信エラーが発生しました: ' + error.message);
+          btn.disabled = false;
+          btn.innerText = 'プロに無料相談する（日程調整へ）';
+        })
+        .processForm(formData);
+    }
+  </script>
+</body>
+</html>
